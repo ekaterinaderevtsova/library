@@ -26,11 +26,46 @@ func (l *Library) AddBook(book book.Book, num uint) {
 	}
 }
 
-func (l *Library) RemoveAllCopiesBook(book book.Book) {
+func (l *Library) RemoveBook(book book.Book) {
 	_, exists := l.books[book]
 	if exists {
 		delete(l.books, book)
 	} else {
-		fmt.Println("No such book in the library.")
+		fmt.Println("No such book in the library.") //change to error
+	}
+}
+
+func (l *Library) RemoveBookByTitle(title string) {
+	for bookKey, _ := range l.books {
+		if bookKey.GetTitle() == title {
+			delete(l.books, bookKey)
+			return
+		}
+	}
+	fmt.Println("No such book in the library.") //change to error
+}
+
+func (l *Library) BorrowBook(book book.Book) {
+	num, exists := l.books[book]
+	if exists {
+		l.books[book] = num - 1
+	} else {
+		fmt.Println("No such book in the library.") //change to error
+	}
+}
+
+func (l *Library) BorrowBookByTitle(title string) {
+	for bookKey, num := range l.books {
+		if bookKey.GetTitle() == title {
+			l.books[bookKey] = num - 1
+			return
+		}
+	}
+	fmt.Println("No such book in the library.") //change to error
+}
+
+func (l *Library) DisplayBooks() {
+	for bookToPrint, num := range l.books {
+		fmt.Println(bookToPrint.GetTitle(), ", ", bookToPrint.GetAuthor(), ", ", num, " copies")
 	}
 }
