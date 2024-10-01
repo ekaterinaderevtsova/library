@@ -14,6 +14,11 @@ func NewLibrary() *Library {
 
 //func (l *Library) is
 
-func (l *Library) AddBook(name string, author string, amount uint) {
-
+func (l *Library) AddBook(book book.Book, num uint) {
+	oldNum, exists := l.books[book]
+	if exists {
+		l.books[book] = oldNum + num
+	} else {
+		l.books[book] = num
+	}
 }
