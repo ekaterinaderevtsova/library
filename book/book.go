@@ -11,3 +11,11 @@ func NewBook(title string, author string) *Book {
 		author: author,
 	}
 }
+
+func (book *Book) GetTitle() string {
+	return book.title
+}
+
+func (book *Book) GetAuthor() string {
+	return book.author
+}
