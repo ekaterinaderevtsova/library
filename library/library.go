@@ -1,6 +1,9 @@
 package library
 
-import "library/book"
+import (
+	"fmt"
+	"library/book"
+)
 
 type Library struct {
 	books map[book.Book]uint
@@ -20,5 +23,14 @@ func (l *Library) AddBook(book book.Book, num uint) {
 		l.books[book] = oldNum + num
 	} else {
 		l.books[book] = num
+	}
+}
+
+func (l *Library) RemoveAllCopiesBook(book book.Book) {
+	_, exists := l.books[book]
+	if exists {
+		delete(l.books, book)
+	} else {
+		fmt.Println("No such book in the library.")
 	}
 }
