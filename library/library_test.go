@@ -80,7 +80,11 @@ func TestLibrary_RemoveBook(t *testing.T) {
 		var inputBook book.Book = *book.NewBook("Harry Potter", "J.K. Rowling")
 
 		library.AddBook(inputBook, 10)
-		library.RemoveBook(inputBook)
+
+		err := library.RemoveBook(inputBook)
+		if err != nil {
+			t.Error("failed to remove book:", err)
+		}
 
 		if len(library.books) == 0 {
 			assert.True(t, true)
@@ -96,7 +100,11 @@ func TestLibrary_RemoveBook(t *testing.T) {
 
 		library.AddBook(inputBook1, 10)
 		library.AddBook(inputBook2, 12)
-		library.RemoveBook(inputBook1)
+		err := library.RemoveBook(inputBook1)
+
+		if err != nil {
+			t.Error("failed to remove book:", err)
+		}
 
 		if len(library.books) == 1 {
 			assert.True(t, true)
@@ -112,7 +120,11 @@ func TestLibrary_RemoveBookByTitle(t *testing.T) {
 		var inputBook book.Book = *book.NewBook("Harry Potter", "J.K. Rowling")
 
 		library.AddBook(inputBook, 10)
-		library.RemoveBookByTitle("Harry Potter")
+		err := library.RemoveBookByTitle("Harry Potter")
+
+		if err != nil {
+			t.Error("failed to remove book:", err)
+		}
 
 		if len(library.books) == 0 {
 			assert.True(t, true)
@@ -128,7 +140,11 @@ func TestLibrary_RemoveBookByTitle(t *testing.T) {
 
 		library.AddBook(inputBook1, 10)
 		library.AddBook(inputBook2, 12)
-		library.RemoveBookByTitle("Harry Potter")
+		err := library.RemoveBookByTitle("Harry Potter")
+
+		if err != nil {
+			t.Error("failed to remove book:", err)
+		}
 
 		if len(library.books) == 1 {
 			assert.True(t, true)
@@ -144,7 +160,11 @@ func TestLibrary_RemoveBookByTitle(t *testing.T) {
 
 		library.AddBook(inputBook1, 10)
 		library.AddBook(inputBook2, 12)
-		library.RemoveBookByTitle("Harry")
+		err := library.RemoveBookByTitle("Harry")
+
+		if err != nil {
+			t.Error("failed to remove book:", err)
+		}
 
 		if len(library.books) == 2 {
 			assert.True(t, true)
@@ -162,7 +182,11 @@ func TestLibrary_BorrowBook(t *testing.T) {
 		n = 10
 
 		library.AddBook(inputBook, n)
-		library.BorrowBook(inputBook)
+		err := library.BorrowBook(inputBook)
+
+		if err != nil {
+			t.Error("failed to borrow book:", err)
+		}
 
 		if library.books[inputBook] == n-1 {
 			assert.True(t, true)
@@ -180,7 +204,11 @@ func TestLibrary_BorrowBook(t *testing.T) {
 
 		library.AddBook(inputBook1, n)
 		library.AddBook(inputBook2, n)
-		library.BorrowBook(inputBook1)
+		err := library.BorrowBook(inputBook1)
+
+		if err != nil {
+			t.Error("failed to borrow book:", err)
+		}
 
 		if library.books[inputBook1] == n-1 {
 			assert.True(t, true)
@@ -198,7 +226,11 @@ func TestLibrary_BorrowBook(t *testing.T) {
 
 		library.AddBook(inputBook1, n)
 		library.AddBook(inputBook2, n)
-		library.BorrowBook(*book.NewBook("Harry", "J.K. Rowling"))
+		err := library.BorrowBook(*book.NewBook("Harry", "J.K. Rowling"))
+
+		if err != nil {
+			t.Error("failed to borrow book:", err)
+		}
 
 		if library.books[inputBook1] == n {
 			assert.True(t, true)

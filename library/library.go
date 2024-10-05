@@ -26,42 +26,44 @@ func (l *Library) AddBook(book book.Book, num uint) {
 	}
 }
 
-func (l *Library) RemoveBook(book book.Book) {
+func (l *Library) RemoveBook(book book.Book) error {
 	_, exists := l.books[book]
 	if exists {
 		delete(l.books, book)
+		return nil
 	} else {
-		fmt.Println("No such book in the library.") //change to error
+		return fmt.Errorf("book not found in the library")
 	}
 }
 
-func (l *Library) RemoveBookByTitle(title string) {
+func (l *Library) RemoveBookByTitle(title string) error {
 	for bookKey, _ := range l.books {
 		if bookKey.GetTitle() == title {
 			delete(l.books, bookKey)
-			return
+			return nil
 		}
 	}
-	fmt.Println("No such book in the library.") //change to error
+	return fmt.Errorf("book with such title not found in the library")
 }
 
-func (l *Library) BorrowBook(book book.Book) {
+func (l *Library) BorrowBook(book book.Book) error {
 	num, exists := l.books[book]
 	if exists {
 		l.books[book] = num - 1
+		return nil
 	} else {
-		fmt.Println("No such book in the library.") //change to error
+		return fmt.Errorf("book not found in the library")
 	}
 }
 
-func (l *Library) BorrowBookByTitle(title string) {
+func (l *Library) BorrowBookByTitle(title string) error {
 	for bookKey, num := range l.books {
 		if bookKey.GetTitle() == title {
 			l.books[bookKey] = num - 1
-			return
+			return nil
 		}
 	}
-	fmt.Println("No such book in the library.") //change to error
+	return fmt.Errorf("book with such title not found in the library")
 }
 
 func (l *Library) DisplayBooks() {
